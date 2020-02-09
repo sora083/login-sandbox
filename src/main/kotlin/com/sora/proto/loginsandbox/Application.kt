@@ -7,10 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-//@EnableAutoConfiguration
-//@ComponentScan
 @SpringBootApplication
-open class Application {
+class Application {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {

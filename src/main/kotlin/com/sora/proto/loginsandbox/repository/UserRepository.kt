@@ -1,4 +1,4 @@
-package com.sora.proto.loginsandbox.service
+package com.sora.proto.loginsandbox.repository
 
 import com.sora.proto.loginsandbox.model.User
 import org.springframework.data.jpa.repository.JpaRepository

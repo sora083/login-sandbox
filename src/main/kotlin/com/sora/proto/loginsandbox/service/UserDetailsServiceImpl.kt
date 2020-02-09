@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
  * Spring Securityでのユーザー認証に使用する
  */
 @Component
-open class UserDetailsServiceImpl : UserDetailsService {
+class UserDetailsServiceImpl : UserDetailsService {
 
     @Autowired
     lateinit var userService: UserService
@@ -34,7 +34,7 @@ open class UserDetailsServiceImpl : UserDetailsService {
         }
 
         // ユーザー情報が取得できたらSpring Securityで認証できる形で戻す
-        return LoginUser(user);
+        return LoginUser(user)
     }
 
 }

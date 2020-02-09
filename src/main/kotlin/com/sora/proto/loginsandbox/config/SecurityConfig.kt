@@ -13,7 +13,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 
 @Configuration
 @EnableWebSecurity   // Spring Securityの基本設定
-open class SecurityConfig : WebSecurityConfigurerAdapter() {
+class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(web : WebSecurity) {
         // ここに設定したものはセキュリティ設定を無視
@@ -48,7 +48,7 @@ open class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Configuration
-    open class AuthenticationConfiguration : GlobalAuthenticationConfigurerAdapter() {
+    class AuthenticationConfiguration : GlobalAuthenticationConfigurerAdapter() {
         @Autowired
         var userDetailsService : UserDetailsServiceImpl = UserDetailsServiceImpl() ;
 

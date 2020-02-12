@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Component
+import java.util.*
 
 /**
  * UserDetailsServiceの実装クラス
@@ -17,24 +18,25 @@ class UserDetailsServiceImpl : UserDetailsService {
     @Autowired
     lateinit var userService: UserService
 
+    companion object {
+        val log = org.slf4j.LoggerFactory.getLogger(this::class.java.enclosingClass)!!
+    }
+
     override fun loadUserByUsername(username: String): UserDetails {
+
+        log.info("loadUserByUsername. username: $username")
+
         // 認証を行うユーザー情報を格納する
-        var user: User? = null
-        try {
-            // 入力したユーザーIDから認証を行うユーザー情報を取得する
-            user = userService.findByEmail(username)
-        } catch (e: Exception) {
-            // 取得時にExceptionが発生した場合
-            throw UsernameNotFoundException("It can not be acquired User");
-        }
+        val user: Optional<User> = userService.findByEmail(username)
 
         // ユーザー情報を取得できなかった場合
-        if (user == null) {
-            throw UsernameNotFoundException("User not found for login id: " + username);
+        if (!user.isPresent) {
+            log.error("User not found for login id: $username")
+            throw UsernameNotFoundException("User not found for login id: $username")
         }
 
         // ユーザー情報が取得できたらSpring Securityで認証できる形で戻す
-        return LoginUser(user)
+        return LoginUser(user.get())
     }
 
 }

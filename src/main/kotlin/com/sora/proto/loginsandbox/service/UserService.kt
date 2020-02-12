@@ -4,6 +4,7 @@ import com.sora.proto.loginsandbox.model.User
 import com.sora.proto.loginsandbox.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 /**
  * DBからのデータ取得と加工を行う.
@@ -17,5 +18,5 @@ class UserService @Autowired constructor(private val userRepository: UserReposit
      */
     fun findAllUser(): MutableList<User> = userRepository.findAll()
 
-    fun findByEmail(email: String): User = userRepository.findByEmail(email)
+    fun findByEmail(email: String): Optional<User> = userRepository.findByEmail(email)
 }

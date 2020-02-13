@@ -10,22 +10,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.NoOpPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 
-
 @Configuration
-@EnableWebSecurity   // Spring Securityの基本設定
-class SecurityConfig : WebSecurityConfigurerAdapter() {
+@EnableWebSecurity
+class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     companion object {
         val log = org.slf4j.LoggerFactory.getLogger(this::class.java.enclosingClass)!!
     }
 
-    override fun configure(web : WebSecurity) {
+    override fun configure(web: WebSecurity) {
         // ここに設定したものはセキュリティ設定を無視
         web.ignoring().antMatchers(
                 "/**/favicon.ico",
@@ -35,7 +32,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 "/webjars/**")
     }
 
-    override fun configure(http : HttpSecurity)  {
+    override fun configure(http: HttpSecurity) {
         // 認可の設定
         http.authorizeRequests()
                 .antMatchers("/", "/index").permitAll() // indexは全ユーザーアクセス許可
@@ -49,7 +46,6 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .defaultSuccessUrl("/login/success")     // 認証成功時の遷移先
                 .usernameParameter("email") // ユーザー名のパラメータ名
                 .passwordParameter("encrypted_password")  // パスワードのパラメータ名
-                //.and()
 
         // ログアウト
         http.logout()
@@ -60,10 +56,11 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Configuration
     class AuthenticationConfiguration : GlobalAuthenticationConfigurerAdapter() {
-        @Autowired
-        var userDetailsService : UserDetailsServiceImpl = UserDetailsServiceImpl() ;
 
-        override fun init( auth : AuthenticationManagerBuilder) {
+        @Autowired
+        var userDetailsService: UserDetailsServiceImpl = UserDetailsServiceImpl();
+
+        override fun init(auth: AuthenticationManagerBuilder) {
             // 認証するユーザーの設定
             auth.userDetailsService(userDetailsService)
         }

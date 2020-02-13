@@ -6,9 +6,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     initialization-mode: always
   jpa:
-    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL57Dialect
     properties:
       hibernate:
+        show-sql: true
         format_sql: true
 
 logging:
@@ -19,4 +20,4 @@ logging:
         type:
           descriptor.sql.BasicBinder: trace
           EnumType: trace
-      #springframework.web: DEBUG
+      springframework.web: DEBUG

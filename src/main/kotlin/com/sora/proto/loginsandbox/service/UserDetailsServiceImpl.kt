@@ -38,5 +38,4 @@ class UserDetailsServiceImpl : UserDetailsService {
         // ユーザー情報が取得できたらSpring Securityで認証できる形で戻す
         return LoginUser(user.get())
     }
-
 }

@@ -1,7 +1,6 @@
 package com.sora.proto.loginsandbox.config
 
 import com.sora.proto.loginsandbox.service.UserDetailsServiceImpl
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -55,10 +54,9 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Configuration
-    class AuthenticationConfiguration : GlobalAuthenticationConfigurerAdapter() {
-
-        @Autowired
-        var userDetailsService: UserDetailsServiceImpl = UserDetailsServiceImpl();
+    class AuthenticationConfiguration(
+            private val userDetailsService: UserDetailsServiceImpl
+    ) : GlobalAuthenticationConfigurerAdapter() {
 
         override fun init(auth: AuthenticationManagerBuilder) {
             // 認証するユーザーの設定

@@ -1,13 +1,12 @@
 package com.sora.proto.loginsandbox.controller
 
 import com.sora.proto.loginsandbox.service.UserService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.servlet.ModelAndView
 
 @Controller
-class LoginController @Autowired constructor(private val userService: UserService) {
+class LoginController(private val userService: UserService) {
 
     @GetMapping("/")
     fun root(): ModelAndView {

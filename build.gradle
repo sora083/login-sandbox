@@ -18,15 +18,11 @@ buildscript {
     }
 }
 
-plugins {
-    id 'org.springframework.boot' version "2.2.4.RELEASE"
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'java'
-    id "org.jetbrains.kotlin.plugin.spring" version "1.3.61"
-}
-
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
+apply plugin: 'kotlin-allopen'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.moowork.node'
 
 
@@ -78,21 +74,21 @@ test {
     useJUnitPlatform()
 }
 
-//node {
-//    version = '9.11.2'
-//    npmVersion = '6.4.1'
-//    download = true
-//}
-//
-//task webpack(type: NodeTask, dependsOn: 'npmInstall') {
-//    def osName = System.getProperty("os.name").toLowerCase()
-//    if (osName.contains("windows")) {
-//        script = project.file('node_modules/webpack/bin/webpack.js')
-//    } else {
-//        script = project.file('node_modules/.bin/webpack')
-//    }
-//}
-//
-//processResources.dependsOn 'webpack'
-//
-//clean.delete << file('node_modules')
+node {
+    version = '9.11.2'
+    npmVersion = '6.4.1'
+    download = true
+}
+
+task webpack(type: NodeTask, dependsOn: 'npmInstall') {
+    def osName = System.getProperty("os.name").toLowerCase()
+    if (osName.contains("windows")) {
+        script = project.file('node_modules/webpack/bin/webpack.js')
+    } else {
+        script = project.file('node_modules/.bin/webpack')
+    }
+}
+
+processResources.dependsOn 'webpack'
+
+clean.delete << file('node_modules')

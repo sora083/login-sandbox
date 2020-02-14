@@ -9,5 +9,4 @@ class LoginSandboxApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

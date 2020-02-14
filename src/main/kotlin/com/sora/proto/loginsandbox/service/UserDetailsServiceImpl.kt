@@ -5,14 +5,14 @@ import com.sora.proto.loginsandbox.repository.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import java.util.*
 
 /**
  * UserDetailsServiceの実装クラス
  * Spring Securityでのユーザー認証に使用する
  */
-@Component
+@Service
 class UserDetailsServiceImpl(
         private val userRepository: UserRepository) : UserDetailsService {
 

@@ -14,5 +14,5 @@ DELETE FROM users;
 INSERT INTO users VALUES
 ( 1 , 'John' ,'john@example.com', '$2a$10$VXdds6MD7Un/kKbzWOC43uSXGuyI4yPOGszGxzPWI2GiS3zonAnta', 26 , 1 , NOW() , NOW()),
 ( 2 , 'Bob' ,'bob@example.com','$2a$10$GTiBVrju5FsJ2IwEo4ZgCuGtyr7EcIq3oqxKdXeKJNOV2yjka1KVW', 40 , 1, NOW() , NOW()),
-( 3 , 'Michael' ,'michael@example.com','$2a$10$VXdds6MD7Un/kKbzWOC43uSXGuyI4yPOGszGxzPWI2GiS3zonAnta', 20 , 1, NOW() , NOW()),
+( 3 , 'Michael' ,'michael@example.com','$2a$10$v2TgMcvggxMBbtZhqiuyX.6ggrA4x0i9uSNzSg9bt1LESUjSUceCy', 20 , 1, NOW() , NOW()),
 ( 4 , 'Mary' ,'mary@example.com','$2a$10$VXdds6MD7Un/kKbzWOC43uSXGuyI4yPOGszGxzPWI2GiS3zonAnta', 30 , 0, NOW() , NOW());

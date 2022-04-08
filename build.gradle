@@ -1,29 +1,31 @@
 buildscript {
     ext {
-        kotlinVersion = '1.3.61'
-        springBootVersion = '2.2.4.RELEASE'
+        kotlinVersion = '1.6.20'
+        springBootVersion = '2.6.6'
     }
     repositories {
         mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        // gradlePluginPortal()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
-        classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+        classpath "com.github.node-gradle:gradle-node-plugin:3.1.1"
     }
+}
+
+plugins {
+    id "org.springframework.boot" version "2.6.6"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id "com.github.node-gradle.node" version "3.2.1"
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'kotlin-allopen'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'com.moowork.node'
+apply plugin: 'com.github.node-gradle.node'
 
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -55,16 +57,35 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        // mavenBom は以下の URL のものを使用する
+        // https://repo.spring.io/release/org/springframework/boot/spring-boot-starter-parent/2.1.4.RELEASE/
+        // bomProperty に指定可能な property は以下の URL の BOM に記述がある
+        // https://repo.spring.io/release/org/springframework/boot/spring-boot-dependencies/2.1.4.RELEASE/spring-boot-dependencies-2.1.4.RELEASE.pom
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+        mavenBom("org.junit:junit-bom:5.6.2")
+    }
+}
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    // kotlin
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    
+    // spring-boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'mysql:mysql-connector-java:8.0.19'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    
+    // mysql
+    implementation 'mysql:mysql-connector-java:8.0.28'
+    // lombok
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    
+    // test
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
@@ -75,8 +96,8 @@ test {
 }
 
 node {
-    version = '9.11.2'
-    npmVersion = '6.4.1'
+    version = '14.18.1'
+    npmVersion = '6.14.5'
     download = true
 }
 

@@ -11,3 +11,7 @@ SHOW GRANTS FOR 'app'@'localhost';
 
 CREATE DATABASE logindb;
 ```
+
+### TODO
+* [] gradleとnode-pluginのアップグレード
+* spring, kotlinのアップグレード
